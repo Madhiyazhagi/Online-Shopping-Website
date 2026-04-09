@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Products - MoonBeauty Shop</title>
+
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<!-- CSS -->
+<link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+
+<!-- Navbar -->
+<header>
+  <nav class="navbar">
+    <div class="logo">MoonBeauty</div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="products.html" class="active">Products</a></li>
+      <li><a href="cart.html"><i class="fas fa-shopping-cart"></i> Cart</a></li>
+      <li><a href="register.html"><i class="fas fa-user"></i> Login/Register</a></li>
+    </ul>
+    <div class="hamburger"><i class="fas fa-bars"></i></div>
+  </nav>
+</header>
+
+<!-- Hero for Products Page -->
+<section class="hero hero-small">
+  <div class="hero-content">
+    <h1>Explore Our Exclusive Products</h1>
+    <p>High-quality beauty products hand-picked for you!</p>
+  </div>
+</section>
+
+<!-- Filter / Sort Section (placeholder) -->
+<section class="filter-section">
+  <div class="filter-container">
+    <div class="filter">
+      <label for="category">Category:</label>
+      <select id="category">
+        <option value="all">All</option>
+        <option value="skincare">Skincare</option>
+        <option value="makeup">Makeup</option>
+        <option value="haircare">Haircare</option>
+      </select>
+    </div>
+    <div class="filter">
+      <label for="sort">Sort by:</label>
+      <select id="sort">
+        <option value="popular">Most Popular</option>
+        <option value="low">Price: Low to High</option>
+        <option value="high">Price: High to Low</option>
+      </select>
+    </div>
+  </div>
+</section>
+
+<!-- Products Grid -->
+<section class="products">
+  <div class="product-grid">
+    <div class="product-card">
+      <img src="product1.jpg" alt="Luxury Lipstick">
+      <div class="product-info">
+        <h3>Luxury Lipstick</h3>
+        <p>$25.00</p>
+        <button onclick="addToCart('Luxury Lipstick', 25)" class="btn">Add to Cart</button>
+      </div>
+    </div>
+    <div class="product-card">
+      <img src="product2.jpg" alt="Glow Face Cream">
+      <div class="product-info">
+        <h3>Glow Face Cream</h3>
+        <p>$40.00</p>
+        <button onclick="addToCart('Glow Face Cream', 40)" class="btn">Add to Cart</button>
+      </div>
+    </div>
+    <div class="product-card">
+      <img src="product3.jpg" alt="Herbal Shampoo">
+      <div class="product-info">
+        <h3>Herbal Shampoo</h3>
+        <p>$15.00</p>
+        <button onclick="addToCart('Herbal Shampoo', 15)" class="btn">Add to Cart</button>
+      </div>
+    </div>
+    <div class="product-card">
+      <img src="product4.jpg" alt="Organic Serum">
+      <div class="product-info">
+        <h3>Organic Serum</h3>
+        <p>$30.00</p>
+        <button onclick="addToCart('Organic Serum', 30)" class="btn">Add to Cart</button>
+      </div>
+    </div>
+    <div class="product-card">
+      <img src="product5.jpg" alt="Vitamin C Face Wash">
+      <div class="product-info">
+        <h3>Vitamin C Face Wash</h3>
+        <p>$18.00</p>
+        <button onclick="addToCart('Vitamin C Face Wash', 18)" class="btn">Add to Cart</button>
+      </div>
+    </div>
+    <div class="product-card">
+      <img src="product6.jpg" alt="Matte Foundation">
+      <div class="product-info">
+        <h3>Matte Foundation</h3>
+        <p>$35.00</p>
+        <button onclick="addToCart('Matte Foundation', 35)" class="btn">Add to Cart</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-content">
+    <div class="footer-left">
+      <h3>MoonBeauty Shop</h3>
+      <p>&copy; 2026 MoonBeauty Shop | All Rights Reserved</p>
+    </div>
+    <div class="footer-right">
+      <a href="#"><i class="fab fa-facebook-f"></i></a>
+      <a href="#"><i class="fab fa-instagram"></i></a>
+      <a href="#"><i class="fab fa-twitter"></i></a>
+    </div>
+  </div>
+</footer>
+
+<!-- JavaScript -->
+<script src="script.js"></script>
+<script>
+  // Hamburger menu toggle
+  const hamburger = document.querySelector('.hamburger');
+  const navLinks = document.querySelector('.nav-links');
+
+  hamburger.addEventListener('click', () => {
+    navLinks.classList.toggle('open');
+  });
+
+  // Dummy addToCart function
+  let cart = [];
+  function addToCart(name, price) {
+    cart.push({name, price});
+    alert(`${name} added to cart!`);
+    localStorage.setItem('cart', JSON.stringify(cart));
+  }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cart - MoonBeauty Shop</title>
+
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<!-- CSS -->
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Navbar -->
+<header>
+  <nav class="navbar">
+    <div class="logo">MoonBeauty</div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="products.html">Products</a></li>
+      <li><a href="cart.html" class="active"><i class="fas fa-shopping-cart"></i> Cart</a></li>
+      <li><a href="register.html"><i class="fas fa-user"></i> Login/Register</a></li>
+    </ul>
+    <div class="hamburger"><i class="fas fa-bars"></i></div>
+  </nav>
+</header>
+
+<!-- Hero Section for Cart -->
+<section class="hero hero-small">
+  <div class="hero-content">
+    <h1>Your Shopping Cart</h1>
+    <p>Review your selected items before checkout</p>
+  </div>
+</section>
+
+<!-- Cart Section -->
+<section class="cart-section">
+  <div class="cart-container">
+    <table class="cart-table">
+      <thead>
+        <tr>
+          <th>Product</th>
+          <th>Price</th>
+          <th>Quantity</th>
+          <th>Subtotal</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody id="cart-items">
+        <!-- Cart items will be dynamically inserted here -->
+      </tbody>
+    </table>
+    <div class="cart-total">
+      <h3>Total: $<span id="total">0</span></h3>
+      <button class="btn btn-checkout" onclick="checkout()">Proceed to Checkout</button>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-content">
+    <div class="footer-left">
+      <h3>MoonBeauty Shop</h3>
+      <p>&copy; 2026 MoonBeauty Shop | All Rights Reserved</p>
+    </div>
+    <div class="footer-right">
+      <a href="#"><i class="fab fa-facebook-f"></i></a>
+      <a href="#"><i class="fab fa-instagram"></i></a>
+      <a href="#"><i class="fab fa-twitter"></i></a>
+    </div>
+  </div>
+</footer>
+
+<!-- JavaScript -->
+<script src="script.js"></script>
+<script>
+  // Hamburger menu toggle
+  const hamburger = document.querySelector('.hamburger');
+  const navLinks = document.querySelector('.nav-links');
+
+  hamburger.addEventListener('click', () => {
+    navLinks.classList.toggle('open');
+  });
+
+  // Load cart from localStorage
+  let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+  const cartItemsContainer = document.getElementById('cart-items');
+  const totalEl = document.getElementById('total');
+
+  function displayCart() {
+    cartItemsContainer.innerHTML = '';
+    let total = 0;
+
+    cart.forEach((item, index) => {
+      const subtotal = item.price * (item.quantity || 1);
+      total += subtotal;
+
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td>${item.name}</td>
+        <td>$${item.price}</td>
+        <td>
+          <input type="number" min="1" value="${item.quantity || 1}" onchange="updateQuantity(${index}, this.value)">
+        </td>
+        <td>$${subtotal}</td>
+        <td><button class="btn btn-remove" onclick="removeItem(${index})"><i class="fas fa-trash"></i></button></td>
+      `;
+      cartItemsContainer.appendChild(tr);
+    });
+
+    totalEl.textContent = total.toFixed(2);
+  }
+
+  function updateQuantity(index, value) {
+    cart[index].quantity = parseInt(value);
+    localStorage.setItem('cart', JSON.stringify(cart));
+    displayCart();
+  }
+
+  function removeItem(index) {
+    cart.splice(index, 1);
+    localStorage.setItem('cart', JSON.stringify(cart));
+    displayCart();
+  }
+
+  function checkout() {
+    if(cart.length === 0){
+      alert("Your cart is empty!");
+      return;
+    }
+    alert("Proceeding to checkout. Total: $" + totalEl.textContent);
+    // For now, we just clear the cart
+    cart = [];
+    localStorage.setItem('cart', JSON.stringify(cart));
+    displayCart();
+  }
+
+  displayCart();
+</script>
+
+</body>
+</html>
